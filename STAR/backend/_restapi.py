@@ -32,7 +32,7 @@ def put_task():
     size = request.json.get("size", 100)
 
     task_id = len(TASKS)
-    TASKS[task_id] = integration.delay(g, a, b, c, d, size)
+    TASKS[task_id] = integration.delay(f, a, b, c, d, size)
     response = {"task_id": task_id}
     return jsonify(response)
 
