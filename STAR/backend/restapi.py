@@ -26,7 +26,7 @@ def get_task(task_id):
         if task.ready():
             response["result"] = task.get()
     else:
-        response["result"] = "this id does not existing yet ;)"
+        return "there is not task with id as " + str(task_id)
     return jsonify(response)
 
 
@@ -37,12 +37,16 @@ def put_task():
     """
     args = []
     for parameter in ANNOTATIONS:
+        try:
+            arg = request.json[parameter]
+        except:
+            return "the parameter '" + parameter + "' seems to be missing"
         if ANNOTATIONS[parameter] == int:
-            args.append(int(request.json[parameter]))
+            args.append(int(arg))
         elif ANNOTATIONS[parameter] == float:
-            args.append(float(request.json[parameter]))
+            args.append(float(arg))
         else:
-            args.append(request.json[parameter])
+            args.append(arg)
 
     task_id = len(TASKS)
     TASKS[task_id] = integrate.delay(*args)

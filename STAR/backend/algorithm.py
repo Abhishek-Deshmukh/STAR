@@ -18,7 +18,9 @@ def main(f: str, a: float, b: float, c: float, d: float, size: int):
     area = (a - b) * (c - d)
     under = ys < eval_expr(f, {"xs": xs}, NUMPY_DICT)
 
-    return sum(under) / size * area
+    pi = sum(under) / size * area
+
+    return pi
 
 
 # just to check if the thing works

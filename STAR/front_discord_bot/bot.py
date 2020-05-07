@@ -77,6 +77,38 @@ class MyClient(Client):
         if words == ["clear"]:
             self.params.clear()
             await send("parameters have been cleared")
+            return
+
+        # to start running the program
+        if words == ["run"]:
+            req = requests.put("http://localhost:5000", json=self.params)
+            if req.text == "the parameter 'size' seems to be missing":
+                await send(req.text)
+            else:
+                await send("process has started:\n" + req.text)
+            return
+
+        # to check if it is complete
+        if words[0] == "get":
+            if len(words) > 1:
+                if words[1] == "all":
+                    req = requests.get("http://localhost:5000/")
+                    await send(req.text)
+                    return
+                for word in words[1:]:
+                    req = requests.get("http://localhost:5000/" + word)
+                    await send(req.text)
+                return
+
+        if words in (["help"], ["Help"]):
+            await send(
+                """setting arguments for your function \n **set a = 4** or **plant=dandelion** \n \n seeing all the set parameters \n **show** \n \n seeing what are the value of a some of the arguments \n **show a c plant** \n \n removing a parameter \n **rm a** or **remove a** \n \n running the main function that you wrote \n **run**\n if everything goes right output will be \n **{**\n     **'task_id' : 3**\n **}**\n remember that id, it gonna be useful to check the output\n \n check if all your programs are running\n **get all** \n \n get the result form task with id 3\n **get 3**
+                    """
+            )
+            return
+
+        await send("what???")
+        return
 
 
 CLIENT = MyClient()

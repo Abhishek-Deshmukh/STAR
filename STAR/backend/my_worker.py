@@ -11,10 +11,6 @@ from algorithm import main
 
 APP = Celery(__name__, backend="rpc://", broker="redis://localhost:6379/")
 
-# easier way, if you don't care about exception
-# integrate = app.task(approx)
-
-# safer way
 @APP.task
 def integrate(*args, **kwargs):
     """integration between redis and this"""
