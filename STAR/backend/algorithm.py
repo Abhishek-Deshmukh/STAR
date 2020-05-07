@@ -10,7 +10,7 @@ import numpy
 NUMPY_DICT = {a: getattr(numpy, a) for a in dir(numpy)}
 
 
-def approx(f, a, b, c, d, size):
+def main(f: str, a: float, b: float, c: float, d: float, size: int):
     """Monte Carlo simulation"""
     xs = uniform(a, b, size)
     ys = uniform(c, d, size)
@@ -21,6 +21,7 @@ def approx(f, a, b, c, d, size):
     return sum(under) / size * area
 
 
+# just to check if the thing works
 if __name__ == "__main__":
     from sys import argv
 
@@ -29,5 +30,5 @@ if __name__ == "__main__":
     a, b, c, d = map(int, (a, b, c, d))
 
     print(f"integrating {f} from {a} to {b} with {size} samples")
-    result = approx(f, a, b, c, d, size)
+    result = main(f, a, b, c, d, size)
     print(f"approx= {result}")

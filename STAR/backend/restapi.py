@@ -3,7 +3,7 @@ author: Abhishek Anil Deshmukh <deshmukhabhishek369@gmail.com>
 The rest api to access algorithm via http
 """
 from flask import Flask, request, jsonify
-from my_worker import integrate
+from my_worker import integrate, ANNOTATIONS
 
 APP = Flask(__name__)
 TASKS = {}
@@ -35,15 +35,17 @@ def put_task():
     """Function for the call of "/"
     actually runs the algorithm
     """
-    f = request.json["f"]
-    a = request.json["a"]
-    b = request.json["b"]
-    c = request.json["c"]
-    d = request.json["d"]
-    size = request.json.get("size", 100)
+    args = []
+    for parameter in ANNOTATIONS:
+        if ANNOTATIONS[parameter] == int:
+            args.append(int(request.json[parameter]))
+        elif ANNOTATIONS[parameter] == float:
+            args.append(float(request.json[parameter]))
+        else:
+            args.append(request.json[parameter])
 
     task_id = len(TASKS)
-    TASKS[task_id] = integrate.delay(f, a, b, c, d, size)
+    TASKS[task_id] = integrate.delay(*args)
     response = {"task_id": task_id}
     return jsonify(response)
 

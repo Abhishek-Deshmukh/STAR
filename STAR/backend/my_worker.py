@@ -3,7 +3,7 @@ Abhishek Anil Deshmukh <deshmukhabhishek369@gmail.com>
 the integration between celery redis and STAR
 """
 from celery import Celery
-from algorithm import approx
+from algorithm import main
 
 # how to run
 # $ redis-server
@@ -19,6 +19,9 @@ APP = Celery(__name__, backend="rpc://", broker="redis://localhost:6379/")
 def integrate(*args, **kwargs):
     """integration between redis and this"""
     try:
-        return approx(*args, **kwargs)
-    except Exception:
-        return "Something could be wrong with the arguments send here"
+        return main(*args, **kwargs)
+    except Exception as err:
+        return str(err.__repr__())
+
+
+ANNOTATIONS = main.__annotations__ # annotation for parameters
