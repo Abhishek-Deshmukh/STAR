@@ -2,7 +2,8 @@
   <div class="row mb-5">
     <div class="col-sm-12 col-md-3">
       <label :for="param"
-        >{{ param }} ({{ $store.state.fields[param] }}):</label
+        >{{ param }} (<code>{{ $store.state.fields[param] }}</code
+        >):</label
       >
     </div>
     <div class="col-sm-12 col-md-9 col-lg-7">

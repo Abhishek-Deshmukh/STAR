@@ -4,9 +4,12 @@ The rest api to access algorithm via http
 """
 import json
 from flask import Flask, request, jsonify, Response
+from flask_cors import CORS
 from my_worker import integrate, ANNOTATIONS
 
+
 APP = Flask(__name__)
+CORS(APP)
 TASKS = {}
 
 
@@ -14,10 +17,7 @@ TASKS = {}
 def list_tasks():
     """return the list of tasks"""
     tasks = {task_id: {"ready": task.ready()} for task_id, task in TASKS.items()}
-    # coz CORS thing
-    response = Response(json.dumps(tasks))
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    return response
+    return jsonify(tasks)
 
 
 @APP.route("/<int:task_id>", methods=["GET"])
@@ -31,10 +31,7 @@ def get_task(task_id):
             response["result"] = task.get()
     else:
         response = "there is not task with id as " + str(task_id)
-    # coz CORS thing
-    response = Response(json.dumps(response))
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    return response
+    return jsonify(response)
 
 
 @APP.route("/params", methods=["GET"])
@@ -50,17 +47,15 @@ def get_params():
             ANNOTATIONS[param] = "float"
         elif annotation is str:
             ANNOTATIONS[param] = "str"
-    response = Response(json.dumps(ANNOTATIONS))
-    # coz CORS thing
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    return response
+    return ANNOTATIONS
 
 
-@APP.route("/", methods=["PUT"])
+@APP.route("/", methods=["POST"])
 def put_task():
     """Function for the call of "/"
     actually runs the algorithm
     """
+    print("json:", request.json)
     args = []
     for parameter in ANNOTATIONS:
         try:
@@ -76,10 +71,7 @@ def put_task():
 
     task_id = len(TASKS)
     TASKS[task_id] = integrate.delay(*args)
-    # coz CORS things
-    response = Response(json.dumps({"task_id": task_id}))
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    return response
+    return jsonify({"task_id": task_id})
 
 
 if __name__ == "__main__":

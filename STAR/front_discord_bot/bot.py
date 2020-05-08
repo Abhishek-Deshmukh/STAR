@@ -81,7 +81,7 @@ class MyClient(Client):
 
         # to start running the program
         if words == ["run"]:
-            req = requests.put("http://localhost:5000", json=self.params)
+            req = requests.post("http://localhost:5000", json=self.params)
             if req.text == "the parameter 'size' seems to be missing":
                 await send(req.text)
             else:
