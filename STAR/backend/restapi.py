@@ -2,7 +2,8 @@
 author: Abhishek Anil Deshmukh <deshmukhabhishek369@gmail.com>
 The rest api to access algorithm via http
 """
-from flask import Flask, request, jsonify
+import json
+from flask import Flask, request, jsonify, Response
 from my_worker import integrate, ANNOTATIONS
 
 APP = Flask(__name__)
@@ -30,6 +31,27 @@ def get_task(task_id):
     return jsonify(response)
 
 
+@APP.route("/params", methods=["GET"])
+def get_params():
+    """for getting the annotations and parameter list"""
+    # turning annotations into a jsonifiable object
+    response_data = []
+    i = 0
+    for param, annotation in ANNOTATIONS.items():
+        if annotation is int:
+            field = {"name": param, "type": "int", "id": i}
+        elif annotation is float:
+            field = {"name": param, "type": "float", "id": i}
+        elif annotation is str:
+            field = {"name": param, "type": "str", "id": i}
+        i += 1
+        response_data.append(field)
+    response = Response(json.dumps(response_data))
+    # coz CROS things
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
 @APP.route("/", methods=["PUT"])
 def put_task():
     """Function for the call of "/"
@@ -45,7 +67,7 @@ def put_task():
             args.append(int(arg))
         elif ANNOTATIONS[parameter] == float:
             args.append(float(arg))
-        else:
+        elif ANNOTATIONS[parameter] == str:
             args.append(arg)
 
     task_id = len(TASKS)
