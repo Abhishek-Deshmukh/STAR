@@ -41,18 +41,16 @@ def get_task(task_id):
 def get_params():
     """for getting the annotations and parameter list"""
     # turning annotations into a jsonifiable object
-    response_data = []
-    i = 0
+    # response_data = []
+    # i = 0
     for param, annotation in ANNOTATIONS.items():
         if annotation is int:
-            field = {"name": param, "type": "int", "id": i}
+            ANNOTATIONS[param] = "int"
         elif annotation is float:
-            field = {"name": param, "type": "float", "id": i}
+            ANNOTATIONS[param] = "float"
         elif annotation is str:
-            field = {"name": param, "type": "str", "id": i}
-        i += 1
-        response_data.append(field)
-    response = Response(json.dumps(response_data))
+            ANNOTATIONS[param] = "str"
+    response = Response(json.dumps(ANNOTATIONS))
     # coz CORS thing
     response.headers["Access-Control-Allow-Origin"] = "*"
     return response

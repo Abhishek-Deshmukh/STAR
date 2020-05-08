@@ -1,30 +1,32 @@
 <template>
   <div class="row mb-5">
     <div class="col-sm-12 col-md-3">
-      <label :for="field.name">{{ field.name }} ({{ field.type }}):</label>
+      <label :for="param"
+        >{{ param }} ({{ $store.state.fields[param] }}):</label
+      >
     </div>
     <div class="col-sm-12 col-md-9 col-lg-7">
       <!-- integer -->
       <b-form-input
-        v-if="field.type == 'int'"
-        v-model="$store.state.values[field.id]"
+        v-if="$store.state.fields[param] == 'int'"
+        v-model="$store.state.values[param]"
         type="number"
-        :id="field.name"
+        :id="param"
       ></b-form-input>
       <!-- float -->
       <b-form-input
-        v-else-if="field.type == 'float'"
-        v-model="$store.state.values[field.id]"
+        v-else-if="$store.state.fields[param] == 'float'"
+        v-model="$store.state.values[param]"
         type="number"
-        :id="field.name"
+        :id="param"
         step="any"
       ></b-form-input>
       <!-- string -->
       <b-form-input
-        v-else-if="field.type == 'str'"
-        v-model="$store.state.values[field.id]"
+        v-else-if="$store.state.fields[param] == 'str'"
+        v-model="$store.state.values[param]"
         type="text"
-        :id="field.name"
+        :id="param"
       ></b-form-input>
     </div>
   </div>
@@ -33,7 +35,7 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 @Component({
-  props: { field: Object }
+  props: { param: String }
 })
 export default class InputField extends Vue {}
 </script>

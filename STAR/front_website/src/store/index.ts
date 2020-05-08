@@ -5,8 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    values: [],
-    fields: {}
+    values: {},
+    fields: { a: "int", b: "float", c: "str" }
   },
   mutations: {},
   actions: {},
