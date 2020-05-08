@@ -14,7 +14,10 @@ TASKS = {}
 def list_tasks():
     """return the list of tasks"""
     tasks = {task_id: {"ready": task.ready()} for task_id, task in TASKS.items()}
-    return jsonify(tasks)
+    # coz CORS thing
+    response = Response(json.dumps(tasks))
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
 
 
 @APP.route("/<int:task_id>", methods=["GET"])
@@ -27,8 +30,11 @@ def get_task(task_id):
         if task.ready():
             response["result"] = task.get()
     else:
-        return "there is not task with id as " + str(task_id)
-    return jsonify(response)
+        response = "there is not task with id as " + str(task_id)
+    # coz CORS thing
+    response = Response(json.dumps(response))
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
 
 
 @APP.route("/params", methods=["GET"])
@@ -47,7 +53,7 @@ def get_params():
         i += 1
         response_data.append(field)
     response = Response(json.dumps(response_data))
-    # coz CROS things
+    # coz CORS thing
     response.headers["Access-Control-Allow-Origin"] = "*"
     return response
 
@@ -72,8 +78,10 @@ def put_task():
 
     task_id = len(TASKS)
     TASKS[task_id] = integrate.delay(*args)
-    response = {"task_id": task_id}
-    return jsonify(response)
+    # coz CORS things
+    response = Response(json.dumps({"task_id": task_id}))
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    return response
 
 
 if __name__ == "__main__":

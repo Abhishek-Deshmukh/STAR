@@ -1,7 +1,7 @@
 <template>
   <div class="row mb-5">
     <div class="col-sm-12 col-md-3">
-      <label :for="field.name">{{ field.name }}({{ field.type }}):</label>
+      <label :for="field.name">{{ field.name }} ({{ field.type }}):</label>
     </div>
     <div class="col-sm-12 col-md-9 col-lg-7">
       <!-- integer -->
