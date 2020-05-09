@@ -5,8 +5,8 @@
       <router-link to="/about">About</router-link>
     </div>
     <router-view />
-      <footer class="text-muted bottom mt-5">
-    Made with love by Abhishek Anil Deshmukh
+    <footer class="text-muted bottom mt-5">
+      Made with love by Abhishek Anil Deshmukh
     </footer>
   </div>
 </template>

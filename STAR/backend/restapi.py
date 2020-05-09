@@ -3,7 +3,7 @@ author: Abhishek Anil Deshmukh <deshmukhabhishek369@gmail.com>
 The rest api to access algorithm via http
 """
 import json
-from flask import Flask, request, jsonify, Response
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from my_worker import integrate, ANNOTATIONS
 
@@ -62,12 +62,30 @@ def put_task():
             arg = request.json[parameter]
         except:
             return "the parameter '" + parameter + "' seems to be missing"
-        if ANNOTATIONS[parameter] == int:
+        if (
+            str(ANNOTATIONS[parameter]) == "<class 'int'>"
+            or str(ANNOTATIONS[parameter]) == "int"
+        ):
             args.append(int(arg))
-        elif ANNOTATIONS[parameter] == float:
+        elif (
+            str(ANNOTATIONS[parameter]) == "<class 'float'>"
+            or str(ANNOTATIONS[parameter]) == "float"
+        ):
             args.append(float(arg))
-        elif ANNOTATIONS[parameter] == str:
+        elif (
+            str(ANNOTATIONS[parameter]) == "<class 'str'>"
+            or str(ANNOTATIONS[parameter]) == "str"
+        ):
             args.append(arg)
+        else:
+            return (
+                "yeah something is wrong with "
+                + parameter
+                + " "
+                + arg
+                + " type as "
+                + str(ANNOTATIONS[parameter])
+            )
 
     task_id = len(TASKS)
     TASKS[task_id] = integrate.delay(*args)

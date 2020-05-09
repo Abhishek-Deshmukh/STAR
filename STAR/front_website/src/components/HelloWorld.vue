@@ -4,6 +4,10 @@
       <InputField :param="param" />
     </div>
     <b-button variant="info" @click="sendRunCommand">Run Task</b-button>
+    <br />
+    <code v-if="$store.state.runButtonClicked" @click="goToGet">{{
+      $store.state.runInstanceData
+    }}</code>
   </div>
 </template>
 
@@ -18,6 +22,10 @@ import { Action } from "vuex-class";
 export default class HelloWorld extends Vue {
   @Action("fetchParams") fetchParams;
   @Action("sendRunCommand") sendRunCommand;
+
+  goToGet() {
+    this.$router.push("/get");
+  }
   created() {
     this.fetchParams();
   }

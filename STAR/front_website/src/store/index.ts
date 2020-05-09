@@ -7,21 +7,29 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     values: {},
-    fields: {}
+    fields: {},
+    runInstanceData: {},
+    runButtonClicked: false,
+    output: ""
   },
-  mutations: {},
+  mutations: {
+  },
   actions: {
     async fetchParams({ state }) {
       const response = await axios.get("http://localhost:5000/params");
       state.fields = response.data;
-      console.log(state.fields);
-      console.log(response);
     },
     async sendRunCommand({ state }) {
       const values = state.values;
-      console.log({ ...values });
-      const response = await axios.post("http://localhost:5000", values);
-      console.log(response);
+      const response = await axios.post("http://localhost:5000/", values);
+      state.runInstanceData = response.data;
+      state.runButtonClicked = true;
+    },
+    async fetchResults({ state }) {
+      const response = await axios.get(
+        "http://localhost:5000/" + state.runInstanceData["task_id"]
+      );
+      state.output = response.data;
     }
   },
   modules: {}
