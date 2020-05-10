@@ -11,7 +11,7 @@ STAR lets you monitor the run or restart your simulation and lets you know when 
 #### Check for Redis
 
 ```bash
-  redis-server --version
+  $ redis-server --version
 ```
 
 if the output says something along the lines of `command not found`,
@@ -19,11 +19,8 @@ you can install it from your operating system's package manager(for more details
 
 #### Installing STAR
 
-The easiest way to try out STAR is to go to one of these pages and follow the instructions
+The easiest way to try out STAR is to, go to [this](https://deshmukh-blog.netlify.app/detail/2.html) Blog post and follow the instructions.
 
-- [ only discord ](http://abhishek-deshmukh.github.io)
-- [ only webpage ](http://abhishek-deshmukh.github.io)
-- [ both discord and webpage ](http://abhishek-deshmukh.github.io)
 
 ## Developer Guide
 
@@ -46,6 +43,8 @@ The easiest way to try out STAR is to go to one of these pages and follow the in
 - `npm run build`
 - `cd ./dist`
 - `python -m http.server`
+
+##### Credits
 
 derived from the work of James Powell
 A tool of doing and monitoring remote development easier.
