@@ -2,6 +2,8 @@
 
 version: 0.0.0
 
+STAR can be used to convert your script into a website within minutes.
+
 ## Getting started
 
 STAR lets you monitor the run or restart your simulation and lets you know when it crashes all on either your phone via DISCORD or a via a website interface (responsive).
