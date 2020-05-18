@@ -1,9 +1,13 @@
 <template>
   <div>
-    <div v-for="param in Object.keys($store.state.fields)" :key="param">
-      <InputField :param="param" />
-    </div>
-    <b-button variant="info" @click="sendRunCommand">Run Task</b-button>
+    <InputField
+      v-for="param in Object.keys($store.state.fields)"
+      :key="param"
+      :param="param"
+    />
+    <b-button variant="info" @click="sendRunCommand" class="mb-2"
+      >Run Task</b-button
+    >
     <br />
     <code v-if="$store.state.runButtonClicked" @click="goToGet">{{
       $store.state.runInstanceData
@@ -20,8 +24,8 @@ import { Action } from "vuex-class";
   components: { InputField }
 })
 export default class HelloWorld extends Vue {
-  @Action("fetchParams") fetchParams;
-  @Action("sendRunCommand") sendRunCommand;
+  @Action("fetchParams") fetchParams: void;
+  @Action("sendRunCommand") sendRunCommand: void;
 
   goToGet() {
     this.$router.push("/get");

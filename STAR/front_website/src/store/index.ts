@@ -12,8 +12,6 @@ export default new Vuex.Store({
     runButtonClicked: false,
     output: ""
   },
-  mutations: {
-  },
   actions: {
     async fetchParams({ state }) {
       const response = await axios.get("http://localhost:5000/params");
