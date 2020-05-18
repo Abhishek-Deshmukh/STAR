@@ -39,7 +39,7 @@ class MyClient(Client):
             return
 
         # setting parameters
-        if words[0] == "set":
+        if words[0] in ("set", "Set"):
             if len(words) == 4:
                 if words[2] == "=" or words[2] == "as" or words[2] == "to":
                     self.params[words[1]] = words[3]
@@ -52,7 +52,7 @@ class MyClient(Client):
             return
 
         # getting parameters
-        if words[0] == "show":
+        if words[0] in ("show", "Show"):
             if len(words) > 1:
                 for word in words[1:]:
                     if word in self.params:
@@ -65,7 +65,7 @@ class MyClient(Client):
             return
 
         # removing parameters
-        if words[0] == "rm" or words[0] == "remove":
+        if words[0] in ("rm", "Rm", "remove", "Remove") or words[0] == "remove":
             for word in words[1:]:
                 if word in self.params:
                     self.params.pop(words[1])
@@ -74,13 +74,13 @@ class MyClient(Client):
             return
 
         # remove all parameters
-        if words == ["clear"]:
+        if words in (["clear"], ["Clear"]):
             self.params.clear()
             await send("parameters have been cleared")
             return
 
         # to start running the program
-        if words == ["run"]:
+        if words in (["run"], ["Run"]):
             req = requests.post("http://localhost:5000", json=self.params)
             if req.text == "the parameter 'size' seems to be missing":
                 await send(req.text)
@@ -89,7 +89,7 @@ class MyClient(Client):
             return
 
         # to check if it is complete
-        if words[0] == "get":
+        if words[0] in ("get", "Get"):
             if len(words) > 1:
                 if words[1] == "all":
                     req = requests.get("http://localhost:5000/")
@@ -107,57 +107,10 @@ class MyClient(Client):
             )
             return
 
-        await send("what???")
+        await send("The command could not be comprehended, try saying 'help'")
         return
 
 
 CLIENT = MyClient()
 with open("../../.env", "r") as env:
     CLIENT.run(env.readlines()[1].split(" ")[-1])
-
-
-# setting up the bot
-# BOT = commands.Bot(command_prefix="")
-
-
-# @BOT.event
-# async def on_ready():
-#     """On ready
-#     """
-#     print("BOT trainer is ready and in working conditon")
-
-
-# @BOT.command()
-# async def ping(ctx):
-#     """To if working without messing it up
-#     """
-#     await ctx.send("pong")
-
-
-# @BOT.command()
-# async def fuck(ctx):
-#     """To if working without messing it up(vulgar version)
-#     """
-#     await ctx.send("you")
-
-
-# @BOT.command()
-# async def run(ctx):
-#     """TO run the command from discord via the bot
-#     """
-#     await ctx.send("starting... 🤔")
-#     params = {
-#         "f": "sqrt(4 - xs**2)",
-#         "a": "0",
-#         "b": "2",
-#         "c": "0",
-#         "d": "2",
-#         "size": "1000",
-#     }
-#     req = requests.put("http://localhost:5000", json=params)
-#     await ctx.send(f"process has started:\n{req.text}")
-
-
-# # starting the trainer
-# with open("../../.env", "r") as env:
-#     BOT.run(env.readlines()[1].split(" ")[-1])
