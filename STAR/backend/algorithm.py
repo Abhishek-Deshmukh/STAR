@@ -1,6 +1,6 @@
 """STAR
 Abhishek Anil Deshmukh <deshmukhabhishek369@gmail.com>
-the simulations which is being monitored
+tset simulations which is being monitored
 """
 from numpy.random import uniform
 from sympy.parsing.sympy_parser import eval_expr
