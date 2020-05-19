@@ -4,6 +4,9 @@ version: 0.0.0
 
 STAR can be used to convert your script into a website within minutes.
 
+<!-- ![Logo](./STAR/static/logo.svg) -->
+<img src="./STAR/static/logo.svg.png" style="margin-left: 20%;margin-top: 6%;width:30%;">
+
 ## Getting started
 
 STAR lets you monitor the run or restart your simulation and lets you know when it crashes all on either your phone via DISCORD or a via a website interface (responsive).
@@ -21,8 +24,7 @@ you can install it from your operating system's package manager(for more details
 
 #### Installing STAR
 
-The easiest way to try out STAR is to, go to [this](https://deshmukh-blog.netlify.app/detail/2.html) Blog post and follow the instructions.
-
+The easiest way to try out STAR is to, go to [this Blog post](https://deshmukh-blog.netlify.app/detail/2.html) and follow the instructions.
 
 ## Developer Guide
 
