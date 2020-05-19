@@ -48,6 +48,11 @@ The easiest way to try out STAR is to, go to [this Blog post](https://deshmukh-b
 - `cd ./dist`
 - `python -m http.server`
 
+### ToDo-s
+[ ] other languages support
+[ ] make output human readable
+[ ] allow more than single object output
+
 ##### Credits
 
 derived from the work of James Powell
