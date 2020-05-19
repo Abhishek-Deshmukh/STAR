@@ -1,11 +1,10 @@
+<img src="./STAR/static/logo.svg.png" width="200px;">
 # STAR
 
 version: 0.0.0
 
 STAR can be used to convert your script into a website within minutes.
 
-<!-- ![Logo](./STAR/static/logo.svg) -->
-<img src="./STAR/static/logo.svg.png" style="margin-left: 20%;margin-top: 6%;width:30%;">
 
 ## Getting started
 
