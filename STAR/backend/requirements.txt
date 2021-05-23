@@ -9,7 +9,7 @@ Flask-Cors==3.0.9
 httpie==2.1.0
 idna==2.9
 itsdangerous==1.1.0
-Jinja2==2.11.2
+Jinja2==2.11.3
 kombu==4.6.8
 MarkupSafe==1.1.1
 Pygments==2.7.4
